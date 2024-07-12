@@ -1,8 +1,7 @@
 
 This repo consists of two TPM tools:
 ## 1. Counter Creation
-KV enclaves use TPM counters and assume counters are already created. This repo helps to create TPM counters in a proper way so that the created counters can be used by KV enclaves directly.
-See https://github.com/teechain-dev/kv-enclave/blob/79ea5add366abed38fb2c984d80a921f2416c071/src/host/host_tpm_utils.cpp#L105 for the usage of TPM counters in KV enclaves.
+ENGRAFT use TPM counters and assume counters are already created. This repo helps to create TPM counters in a proper way so that the created counters can be used by ENGRAFT directly.
 
 
 ### Compilation
@@ -26,10 +25,12 @@ make -j
 ### Run
 To run the project, we need to have a TPM2.0 envrionment (/dev/tpm0 and /dev/tpmrm0 should be aveilable).
 If you are using the "oe_sdk" docker images, you can run the project with the following command:
+
 ```
 cd build
 ./tpm_main
-``` 
+# this will create 6 counter for 3 engraft node with 2 counter each
+```
 
 Also note that we can run "oe_sdk" docker images with the following command to enable the TPM2.0 device and SGX device:
 ```
@@ -37,5 +38,5 @@ docker run --network=host --name oe_sdk_vechain --device /dev/tpm0:/dev/tpm0 --d
 ```
 
 ## 2. EK Retrieval
-A KV enclave use the TPM EK (endorsement key) to verify the identity of the TPM, and the "endorsement_key" sub-directory in this repo helps to retrieve the EK from the TPM (see endorsement_key/readme.txt for more details).
-Once we get the PEM-encoded EK (rsa_ek_pub.pem), we need to update the "TPM_ENDORSEMENT_KEY" variable in the KV enclave source code (https://github.com/teechain-dev/kv-enclave/blob/79ea5add366abed38fb2c984d80a921f2416c071/src/sgxbutil/state_cont/tpm_counter.cpp#L12)
+An ENGRAFT use the TPM EK (endorsement key) to verify the identity of the TPM, and the "endorsement_key" sub-directory in this repo helps to retrieve the EK from the TPM (see endorsement_key/readme.txt for more details).
+Once we get the PEM-encoded EK (rsa_ek_pub.pem), we need to update the "TPM_ENDORSEMENT_KEY" variable in the ENGRAFT source code (https://github.com/LiuTxxx/ENGRAFT-TPM/blob/main/src/sgxbutil/state_cont/tpm_counter.cpp)
